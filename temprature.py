@@ -4,21 +4,21 @@ class Temprature:
     data according parameter values.
     ...
     Attributes
-    ----------  
-    maximum_temprature : float
-        max avg in file
-    minmum_tempratue : float
-        min avg in file
-    no_of_lines : float
+    ----------
+    maximum_list : string
+        All max values in file
+    minmum_list : string
+        all min values in file
+    no_of_lines : int
         no of orws in column
 
     Methods
     -------
     __init__(self): 
-    set_maximum_average(self,val):
-        set maximum_average with val  
-    set_minimum_average(self,val):
-        set minimum_average with val  
+    set_maximum_list(self,val):
+        set maximum_list with val  
+    set_minimum_list(self,val):
+        set minimum_list with val  
     set_no_of_lines(self,val):
         set no_lines with val   
     display_report(self):
@@ -30,70 +30,104 @@ class Temprature:
 
         Parameters
         ----------
-        maximum_temprature : float
-            max avg in file
-        minmum_tempratue : float
-            min avg in file
-        humidity : float
-            humid avg in column    
-        no_of_lines : int
-            no of orws in column
+        maximum_list : string list
+            store a column of max temprature from file
+        minimum_list : string list
+            store a column of max temprature from file
+        no_of_line : int
+            no of rows in column
        
         Return
         ------
         None     
         """
-        self.maximum_temprature = 0
-        self.minimum_temprature = 0
-        self.humidity = 0
+        self.maximum_list = []
+        self.minimum_list = []
+        self.no_of_lines = 0
+        
 
-    def set_maximum_average(self,val):
+    def set_maximum_list(self,val):
         """
-        set maximum_average with val(val is the list of max average).
+        set maximum_list with val(val is the list of max temprature).
 
         Parameter
         ---------
         val : string
-            average of max temprature 
+            list of max temprature
 
         Return:
         None
 
         """
-        self.maximum_temprature = val
+        self.maximum_list = val
 
-    def set_minimum_average(self,val):
+    def set_minimum_list(self,val):
         """
-        set minimum_average with val(val is the list of min average).
+        set minimum_list with val(val is the list of min temprature).
 
         Parameter
         ---------
         val : string
-            average of min temprature 
+            list of min temprature
 
         Return:
         None
-
+            
         """
-        self.minimum_temprature = val
+        self.minimum_list = val
 
-    def set_humidity_average(self,val):
+    def set_no_of_lines(self,val):
         """
-        set humid_average with val(val is the list of max average).
+        set no_of_lines with val(val is the no rows in  column).
 
         Parameter
         ---------
-        val : string
-            average of humidity 
+        val : int
+            No of rows
 
         Return:
         None
-
+            
         """
-        self.humidity = val
+        self.no_of_lines = val
+
 
     def display_report(self):
-        ''' Print repot '''
-        print("Highest Average:",str(self.maximum_temprature) + "C")
-        print("Lowest Average:",str(self.minimum_temprature) + "C")
-        print("Average Humidity:",str(self.humidity) + "%")
+        """
+        Print report
+
+        Parameter
+        ---------
+        None 
+
+        Return:
+        None
+            
+        """
+        index_number = 0
+        sym='+'
+        max_range = 0
+        min_range = 0
+        for i in range(self.no_of_lines - 1):
+
+            if(self.maximum_list[index_number].isdigit()):
+                #here is the check for checking number
+                max_range = int(self.maximum_list[index_number])
+            else:
+                max_range = 0    
+
+            if self.minimum_list[index_number].isdigit():
+                min_range = int(self.minimum_list[index_number]) 
+            else:
+                min_range = 0      
+            print(index_number,end='')
+            for j in range(max_range):
+                print("\033[1;34;40m" + sym, end='' )
+            print(str(max_range) + "C")
+            print("\033[1;37;40m")
+            print(index_number,end='')
+            for j in range(min_range):
+                print("\033[1;31;40m"+sym,end='')
+            print(str(min_range)+"C")
+            print("\033[1;37;40m")       
+            index_number = index_number + 1    
