@@ -5,27 +5,12 @@ class Temprature:
     ...
     Attributes
     ----------  
-    maximum_temprature : int 
-        max temperature in month
-    minimum_temprature : int 
-        min temperature in month
-    humidity : int
-        humidity in month  
-    day_of_max : int
-        day of max temperature
-    day_of_min : int
-        day of min temperature
-    day_of_humidity : int 
-        day of max humidity 
-    month_of_max : str
-        month name of max temprature
-    month_of_min : str
-        month name of min temprature 
-    month_of_humidity : str
-        month name of max humidity    
-    no_of_lines : int 
-        no of rows in column
-
+    maximum_temprature : float
+        max avg in file
+    minmum_tempratue : float
+        min avg in file
+    no_of_lines : float
+        no of orws in column
 
     Methods
     -------
@@ -35,7 +20,7 @@ class Temprature:
     set_minimum_average(self,val):
         set minimum_average with val  
     set_no_of_lines(self,val):
-        set no_lines with val 
+        set no_lines with val   
     display_report(self):
         Print report    
     """
@@ -45,113 +30,70 @@ class Temprature:
 
         Parameters
         ----------
-        maximum_temprature : int 
-            max temperature in month
-        minimum_temprature : int 
-            min temperature in month
-        humidity : int
-            humidity in month  
-        day_of_max : int
-            day of max temperature
-        day_of_min : int
-            day of min temperature
-        day_of_humidity : int 
-            day of max humidity 
-        month_of_max : str
-            month name of max temprature
-        month_of_min : str
-            month name of min temprature 
-        month_of_humidity : str
-            month name of max humidity    
-        no_of_lines : int 
-            no of rows in column
+        maximum_temprature : float
+            max avg in file
+        minmum_tempratue : float
+            min avg in file
+        humidity : float
+            humid avg in column    
+        no_of_lines : int
+            no of orws in column
        
         Return
         ------
         None     
         """
         self.maximum_temprature = 0
-        self.minimum_temprature = 100
+        self.minimum_temprature = 0
         self.humidity = 0
-        self.day_of_max = 0
-        self.day_of_min = 0
-        self.day_of_humidity = 0
-        self.month_of_max = "no month"
-        self.month_of_min = "no month"
-        self.month_of_humidity = "no month"
 
-    def set_maximum(self,val,month,day):
+    def set_maximum_average(self,val):
         """
-        set and update maximum value, month and day if parameter 
-        value is greater than maximum_temperature.
+        set maximum_average with val(val is the list of max average).
 
         Parameter
         ---------
-        val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
+        val : string
+            average of max temprature 
 
-        Return
-        ------
-        None    
-        """    
-        if(val.isdigit()):
-            if int(val) > int(self.maximum_temprature):
-                self.maximum_temprature = val
-                self.month_of_max = month
-                self.day_of_max = day
+        Return:
+        None
 
-    def set_minimum(self,val,month,day):
         """
-        set and update minimum value, month and day if parameter 
-        value is less than minimum_temperature.
+        self.maximum_temprature = val
+
+    def set_minimum_average(self,val):
+        """
+        set minimum_average with val(val is the list of min average).
 
         Parameter
         ---------
-        val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
+        val : string
+            average of min temprature 
 
-        Return
-        ------
-        None    
-        """ 
-        if(val.isdigit()):
-            if int(val) < int(self.minimum_temprature):
-                self.minimum_temprature = val
-                self.month_of_min = month
-                self.day_of_min = day
+        Return:
+        None
 
-    def set_humidity(self,val,month,day):
         """
-        set and update humidity value, month and day if parameter 
-        value is greater than humidity.
+        self.minimum_temprature = val
+
+    def set_humidity_average(self,val):
+        """
+        set humid_average with val(val is the list of max average).
 
         Parameter
         ---------
-        val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
+        val : string
+            average of humidity 
 
-        Return
-        ------
-        None    
-        """ 
+        Return:
+        None
+
+        """
         self.humidity = val
-        self.month_of_humidity = month
-        self.day_of_humidity = day
 
     def display_report(self):
-        ''' Print report '''
-        print("Highest:",str(self.maximum_temprature) + "C","on", self.month_of_max, int(self.day_of_max))
-        print("Lowest:",str(self.minimum_temprature) + "C","on", self.month_of_min, int(self.day_of_min))
-        print("Humid:",str(self.humidity) + "%", "on", self.month_of_humidity,int(self.day_of_humidity))
+        ''' Print repot '''
+        print("Highest Average:",str(self.maximum_temprature) + "C")
+        print("Lowest Average:",str(self.minimum_temprature) + "C")
+        print("Average Humidity:",str(self.humidity) + "%")
