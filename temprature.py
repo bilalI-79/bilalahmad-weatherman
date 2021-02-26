@@ -41,6 +41,7 @@ class Temprature:
         ------
         None     
         """
+
         self.maximum_list = []
         self.minimum_list = []
         self.no_of_lines = 0
@@ -91,7 +92,6 @@ class Temprature:
         """
         self.no_of_lines = val
 
-
     def display_report(self):
         """
         Print report
@@ -105,29 +105,24 @@ class Temprature:
             
         """
         index_number = 0
-        sym='+'
         max_range = 0
         min_range = 0
+        sym='+'
         for i in range(self.no_of_lines - 1):
-
+            print(index_number, end='')
             if(self.maximum_list[index_number].isdigit()):
-                #here is the check for checking number
                 max_range = int(self.maximum_list[index_number])
             else:
                 max_range = 0    
 
-            if self.minimum_list[index_number].isdigit():
-                min_range = int(self.minimum_list[index_number]) 
+            if(self.minimum_list[index_number].isdigit()):
+                min_range = int(self.minimum_list[index_number])
             else:
-                min_range = 0      
-            print(index_number,end='')
+                min_range = 0        
             for j in range(max_range):
-                print("\033[1;34;40m" + sym, end='' )
-            print(str(max_range) + "C")
-            print("\033[1;37;40m")
-            print(index_number,end='')
+                print("\033[1;34;40m" + sym,end='')
             for j in range(min_range):
                 print("\033[1;31;40m"+sym,end='')
-            print(str(min_range)+"C")
+            print(self.minimum_list[index_number] + "C","-",self.maximum_list[index_number] + "C")
             print("\033[1;37;40m")       
             index_number = index_number + 1    

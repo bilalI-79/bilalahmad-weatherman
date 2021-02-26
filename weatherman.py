@@ -23,6 +23,7 @@ if __name__ == "__main__":
     data_extraction.change_file_into_readable(file_point)
     data_extraction.find_maximum_list_from_file()
     data_extraction.find_minimum_list_from_file()
+    
     """
     Insert requied data to temrature object for creating proccess
     """

@@ -63,7 +63,7 @@ class File:
         self.list_of_max = []
         self.list_of_min = []
         self.no_of_lines = 0
-        self.month_name="no month"
+        self.month_name = "no month"
         self.file_data = []
  
     def change_file_into_readable(self, file_pointer): 
