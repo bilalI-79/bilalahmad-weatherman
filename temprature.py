@@ -4,38 +4,23 @@ class Temprature:
     data according parameter values.
     ...
     Attributes
-    ----------  
-    maximum_temprature : int 
-        max temperature in month
-    minimum_temprature : int 
-        min temperature in month
-    humidity : int
-        humidity in month  
-    day_of_max : int
-        day of max temperature
-    day_of_min : int
-        day of min temperature
-    day_of_humidity : int 
-        day of max humidity 
-    month_of_max : str
-        month name of max temprature
-    month_of_min : str
-        month name of min temprature 
-    month_of_humidity : str
-        month name of max humidity    
-    no_of_lines : int 
-        no of rows in column
-
+    ----------
+    maximum_list : string
+        All max values in file
+    minmum_list : string
+        all min values in file
+    no_of_lines : int
+        no of orws in column
 
     Methods
     -------
     __init__(self): 
-    set_maximum_average(self,val):
-        set maximum_average with val  
-    set_minimum_average(self,val):
-        set minimum_average with val  
+    set_maximum_list(self,val):
+        set maximum_list with val  
+    set_minimum_list(self,val):
+        set minimum_list with val  
     set_no_of_lines(self,val):
-        set no_lines with val 
+        set no_lines with val   
     display_report(self):
         Print report    
     """
@@ -45,113 +30,99 @@ class Temprature:
 
         Parameters
         ----------
-        maximum_temprature : int 
-            max temperature in month
-        minimum_temprature : int 
-            min temperature in month
-        humidity : int
-            humidity in month  
-        day_of_max : int
-            day of max temperature
-        day_of_min : int
-            day of min temperature
-        day_of_humidity : int 
-            day of max humidity 
-        month_of_max : str
-            month name of max temprature
-        month_of_min : str
-            month name of min temprature 
-        month_of_humidity : str
-            month name of max humidity    
-        no_of_lines : int 
+        maximum_list : string list
+            store a column of max temprature from file
+        minimum_list : string list
+            store a column of max temprature from file
+        no_of_line : int
             no of rows in column
        
         Return
         ------
         None     
         """
-        self.maximum_temprature = 0
-        self.minimum_temprature = 100
-        self.humidity = 0
-        self.day_of_max = 0
-        self.day_of_min = 0
-        self.day_of_humidity = 0
-        self.month_of_max = "no month"
-        self.month_of_min = "no month"
-        self.month_of_humidity = "no month"
 
-    def set_maximum(self,val,month,day):
+        self.maximum_list = []
+        self.minimum_list = []
+        self.no_of_lines = 0
+        
+
+    def set_maximum_list(self,val):
         """
-        set and update maximum value, month and day if parameter 
-        value is greater than maximum_temperature.
+        set maximum_list with val(val is the list of max temprature).
+
+        Parameter
+        ---------
+        val : string
+            list of max temprature
+
+        Return:
+        None
+
+        """
+        self.maximum_list = val
+
+    def set_minimum_list(self,val):
+        """
+        set minimum_list with val(val is the list of min temprature).
+
+        Parameter
+        ---------
+        val : string
+            list of min temprature
+
+        Return:
+        None
+            
+        """
+        self.minimum_list = val
+
+    def set_no_of_lines(self,val):
+        """
+        set no_of_lines with val(val is the no rows in  column).
 
         Parameter
         ---------
         val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
+            No of rows
 
-        Return
-        ------
-        None    
-        """    
-        if(val.isdigit()):
-            if int(val) > int(self.maximum_temprature):
-                self.maximum_temprature = val
-                self.month_of_max = month
-                self.day_of_max = day
-
-    def set_minimum(self,val,month,day):
+        Return:
+        None
+            
         """
-        set and update minimum value, month and day if parameter 
-        value is less than minimum_temperature.
-
-        Parameter
-        ---------
-        val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
-
-        Return
-        ------
-        None    
-        """ 
-        if(val.isdigit()):
-            if int(val) < int(self.minimum_temprature):
-                self.minimum_temprature = val
-                self.month_of_min = month
-                self.day_of_min = day
-
-    def set_humidity(self,val,month,day):
-        """
-        set and update humidity value, month and day if parameter 
-        value is greater than humidity.
-
-        Parameter
-        ---------
-        val : int
-            value
-        month : str
-            month name
-        day : int 
-            day value
-
-        Return
-        ------
-        None    
-        """ 
-        self.humidity = val
-        self.month_of_humidity = month
-        self.day_of_humidity = day
+        self.no_of_lines = val
 
     def display_report(self):
-        ''' Print report '''
-        print("Highest:",str(self.maximum_temprature) + "C","on", self.month_of_max, int(self.day_of_max))
-        print("Lowest:",str(self.minimum_temprature) + "C","on", self.month_of_min, int(self.day_of_min))
-        print("Humid:",str(self.humidity) + "%", "on", self.month_of_humidity,int(self.day_of_humidity))
+        """
+        Print report
+
+        Parameter
+        ---------
+        None 
+
+        Return:
+        None
+            
+        """
+        index_number = 0
+        max_range = 0
+        min_range = 0
+        sym='+'
+        for i in range(self.no_of_lines - 1):
+            print(index_number, end='')
+            if(self.maximum_list[index_number].isdigit()):
+                max_range = int(self.maximum_list[index_number])
+            else:
+                max_range = 0    
+
+            if(self.minimum_list[index_number].isdigit()):
+                min_range = int(self.minimum_list[index_number])
+            else:
+                min_range = 0        
+            for j in range(max_range):
+                print("\033[1;34;40m" + sym,end='')
+            for j in range(min_range):
+                print("\033[1;31;40m"+sym,end='')
+            print(self.minimum_list[index_number] + "C","-",self.maximum_list[index_number] + "C")
+            print("\033[1;37;40m")       
+            index_number = index_number + 1    

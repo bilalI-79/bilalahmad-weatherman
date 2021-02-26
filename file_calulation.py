@@ -5,20 +5,14 @@ class File:
     ...
     Attributes
     ----------
-    value_max : float
-        max value of file
-    value_min : float
-        min value of file
-    value_humid : float
-        humid value of file
-    day_max : int
-        day of max value
-    day_min : int 
-        day of min value
-    day_humid : int
-        day of humid   
+    list_of_max : string list
+        store a column of max temprature from file
+    list_of_min : string list
+        store a column of max temprature from file
     no_of_line : int
         no of rows in column
+    month_name : str
+        name of month
     file_data = string
         whole data of file  
 
@@ -26,23 +20,23 @@ class File:
     -------
     change_file_into_readable(self, file_pointer):
         read the file and return in the form of list  
-    find_maximum_from_current_file(self): 
-        extract max value from max temprature column and day also
-    find_minimum_from_current_file(self): 
-        extract min value from min temprature column and day also
-    find_humidity_from_current_file(self):
-        extract humidity value with day     
+    find_maximum_list_from_file(self): 
+        extract max temprature from file
+    find_minimum_list_from_file(self):
+        extract min temprature from file
+    convert_number_into_month(self,val):
+        return month name  
     dsiplay_file_data(self):
         print file data   
-    get_max_value(self):
-        return max_value    
-    get_min_value(self):
-        retune min_value
-    get_humid_value(self):
-        retune humid_value    
-    get_whole_data_of_file(self):   
+    get_max_list(self):
+        return max list    
+    def get_min_list(self):
+        retune min list
+    def get_whole_data_of_file(self):   
         return alll the data of file
-    get_no_of_lines(self):
+    def get_month(self):         
+        return month name
+    def get_no_of_lines(self):
         return no of rows in column    
     """
     def __init__(self):
@@ -51,36 +45,25 @@ class File:
 
         Parameters
         ----------
-        value_max : float
-            max value of file
-        value_min : float
-            min value of file
-        value_humid : float
-            humid value of file
-        day_max : int
-            day of max value
-        day_min : int 
-            day of min value
-        day_humid : int
-            day of humid   
+        list_of_max : string list
+            store a column of max temprature from file
+        list_of_min : string list
+            store a column of max temprature from file
         no_of_line : int
             no of rows in column
         month_name : str
             name of month
         file_data = string
-            whole data of file  
+            whole data of file 
 
         Return
         ------
         None     
         """
-        self.value_max = 0
-        self.value_min = 0
-        self.value_humid = 0
-        self.day_max = 0
-        self.day_min = 0
-        self.day_humid = 0
+        self.list_of_max = []
+        self.list_of_min = []
         self.no_of_lines = 0
+        self.month_name = "no month"
         self.file_data = []
  
     def change_file_into_readable(self, file_pointer): 
@@ -97,7 +80,7 @@ class File:
         None
         at the end of function list assign to file_data and count no of rows 
         also which is assigng to no_of-lines
-        """ 
+        """
         file_read = file_pointer.readlines() 
         temp = []
         line_count = 0
@@ -105,12 +88,13 @@ class File:
             temp.append(file_read[line_count].split(","))
             line_count = line_count + 1    
         self.file_data = temp
-        self.no_of_lines = line_count 
+        self.no_of_lines = line_count
 
-    def find_maximum_from_current_file(self):
+    
+    def find_maximum_list_from_file(self):
         """
         This function is to extract maximum list from max temprature column
-        in file.and find max value.
+        in file.
 
         Parameter
         ---------
@@ -120,8 +104,7 @@ class File:
         ------
         None
 
-        at the end max of temprature assign to class attribute max_value
-        and day to max_day
+        at the end list of max temp assign to class attribute list_of_max
 
         """
         temp = []
@@ -129,15 +112,12 @@ class File:
         for i in range(self.no_of_lines - 1):
             temp.append(self.file_data[row][col])
             row = row + 1
-        max_value = max(temp)
-        max_index = temp.index(max_value)
-        self.value_max = max_value
-        self.day_max = max_index
-
-    def find_minimum_from_current_file(self):
+        self.list_of_max = temp
+    
+    def find_minimum_list_from_file(self):
         """
         This function is to extract minimum list from min temprature column
-        in file.and find min value.
+        in file.
 
         Parameter
         ---------
@@ -147,75 +127,64 @@ class File:
         ------
         None
 
-        at the end min of temprature assign to class attribute min_value
-        and day to min_day
-
+        at the end list of min temp assign to class attribute list_of_max
         """
         temp = []
         row,col = 1,3
         for i in range(self.no_of_lines - 1):
             temp.append(self.file_data[row][col])
             row = row + 1
-        min_value = min(temp)
-        min_index = temp.index(min_value)
-        self.value_min = min_value
-        self.day_min = min_index
+        self.list_of_min = temp
+        
 
-    def find_humidity_from_current_file(self):
+    def convert_number_into_month(self,val):
         """
-        This function is to extract humidity list from  column
-        in file.and find max humidty value.
-
+        convert month number to month name 
+         
         Parameter
         ---------
-        None
-        
+        val : int
+            Month number
+
         Return
         ------
-        None
-
-        at the end max of humidity assign to class attribute humidity_value
-        and day to humid_day
-
+        None    
         """
-        temp = []
-        row, col = 1,7
-        for i in range(self.no_of_lines - 1):
-            temp.append(self.file_data[row][col])
-            row = row + 1
-        max_value = max(temp)
-        max_index = temp.index(max_value)
-        self.value_humid = max_value
-        self.day_humid = max_index
+        switcher = {
+            1:"Jan",
+            2:"Feb",
+            3:"Mar",
+            4:"Apr",
+            5:"May",
+            6:"Jun",
+            7:"Jul",
+            8:"Aug",
+            9:"Sep",
+            10:"Oct",
+            11:"Nov",
+            12:"Dec"
+        }
+        self.month_name = switcher.get(val, "Invalid number of month")   
 
     def dsiplay_file_data(self):
-        '''Print file data '''
         print(self.file_data)    
     #---------------- getter --------------------------    
-    def get_max_value(self):
-        '''return max value in current file'''
-        return self.value_max
+    def get_max_list(self):
+        '''return max_list stored in attribute'''
+        return self.list_of_max
 
-    def get_min_value(self):
-        ''' Return min value int current file'''
-        return self.value_min
-
-    def get_humid_value(self):
-        '''Return humidty value in current file'''
-        return self.value_humid 
-
-    def get_max_day(self):
-        ''' return day of max temprature of current file'''
-        return self.day_max
-
-    def get_min_day(self):
-        ''' return day of min temprature of current file'''
-        return self.day_min
-
-    def get_humid_day(self):
-        ''' return day of humidity temprature of current file'''
-        return self.day_humid
+    def get_min_list(self):
+        """return min_list which is stored in class attributes"""
+        return self.list_of_min
 
     def get_whole_data_of_file(self):
-        ''' return data of current file'''
-        return self.file_data             
+        """return data which is read from file"""
+        return self.file_data  
+
+    def get_month(self):
+        """return month name stored in attribute"""
+        return self.month_name    
+
+    def get_no_of_lines(self):
+        """return number of rows in tuple stored in attribute"""
+        return self.no_of_lines    
